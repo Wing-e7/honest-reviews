@@ -1,0 +1,100 @@
+product: drift
+url: https://drift.com
+category: conversational-marketing
+last_scraped: 2026-05-23
+
+icp:
+  sweet_spot: [mid_market, enterprise]
+  min_team_size: 10
+  max_team_size: null
+  source: "https://drift.com/pricing"
+  date: 2026-05-01
+
+pricing:
+  free_tier: false
+  entry_price_usd: 2500
+  model: flat
+  source: "https://drift.com/pricing"
+  date: 2026-05-01
+
+features:
+  - id: drift_engage
+    name: "Visitor engagement via Drift AI"
+    mechanism: "Text chat bot engages visitors using playbooks; SDR takes over for qualified leads"
+    jobs: [engage-visitor-without-rep]
+    verdict: true
+    notes: "Playbook-driven, not runtime-personalised"
+    sources:
+      - url: "https://drift.com/features"
+        date: 2026-05-01
+        type: vendor_docs
+
+  - id: drift_qualify
+    name: "Bot-led qualification"
+    mechanism: "Drift AI runs playbook-driven qualification via text chat to capture BANT signals"
+    jobs: [qualify-visitor-autonomously]
+    verdict: true
+    sources:
+      - url: "https://drift.com/features/qualification"
+        date: 2026-05-01
+        type: vendor_docs
+
+  - id: drift_booking
+    name: "In-conversation meeting booking"
+    mechanism: "Schedules meetings during chat via integrated calendar (Drift Meetings)"
+    jobs: [book-meeting-in-session]
+    verdict: true
+    sources:
+      - url: "https://drift.com/features/meetings"
+        date: 2026-05-01
+        type: vendor_docs
+
+  - id: drift_deanon
+    name: "Account-level deanonymization"
+    mechanism: "Identifies visiting company via IP enrichment through 6sense integration"
+    jobs: [identify-company-on-site]
+    verdict: true
+    sources:
+      - url: "https://drift.com/features"
+        date: 2026-05-01
+        type: vendor_docs
+
+  - id: drift_crm
+    name: "CRM sync"
+    mechanism: "Syncs contact and conversation data to Salesforce, HubSpot, and Marketo"
+    jobs: [crm-sync]
+    verdict: true
+    sources:
+      - url: "https://drift.com/integrations"
+        date: 2026-05-01
+        type: vendor_docs
+
+  - id: drift_handoff
+    name: "Live rep handoff"
+    mechanism: "Routes qualified leads to available SDR with conversation context in the same chat window"
+    jobs: [handoff-with-context]
+    verdict: true
+    sources:
+      - url: "https://drift.com/features/live-chat"
+        date: 2026-05-01
+        type: vendor_docs
+
+  - id: drift_voice
+    name: "Voice interaction"
+    mechanism: "No voice feature; all interactions are text chat"
+    jobs: [voice-first-interaction]
+    verdict: false
+    sources:
+      - url: "https://drift.com/features"
+        date: 2026-05-01
+        type: vendor_docs
+
+  - id: drift_b2c
+    name: "B2C / e-commerce support"
+    mechanism: "B2B-only; no D2C or retail support"
+    jobs: [b2c-ecommerce-support]
+    verdict: false
+    sources:
+      - url: "https://drift.com"
+        date: 2026-05-01
+        type: vendor_docs

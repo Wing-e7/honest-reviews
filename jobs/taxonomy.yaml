@@ -1,0 +1,80 @@
+# jobs/taxonomy.yaml
+# weight: 0-1, derived from G2 review mention frequency. Community-editable via PR.
+jobs:
+  - id: identify-company-on-site
+    label: "Identify which company is visiting"
+    outcome: "Know the account before the session ends"
+    category: visitor-intelligence
+    weight: 0.9
+
+  - id: identify-person-on-site
+    label: "Match visitor to a LinkedIn profile or person record"
+    outcome: "Named individual identified before session ends"
+    category: visitor-intelligence
+    weight: 0.75
+
+  - id: real-time-first-party-signals
+    label: "Collect first-party intent signals in real time"
+    outcome: "Scroll depth, page path, UTM, timing captured per session"
+    category: visitor-intelligence
+    weight: 0.8
+
+  - id: return-visitor-memory
+    label: "Recall a visitor's previous sessions without login"
+    outcome: "Personalised experience on return visit"
+    category: visitor-intelligence
+    weight: 0.7
+
+  - id: engage-visitor-without-rep
+    label: "Engage a high-intent visitor without a human rep"
+    outcome: "Visitor engaged 24/7, no SDR required"
+    category: conversion
+    weight: 0.95
+
+  - id: personalized-opening
+    label: "Generate a personalised opening per visitor at runtime"
+    outcome: "Visitor hears/sees something specific to them, not a template"
+    category: conversion
+    weight: 0.8
+
+  - id: voice-first-interaction
+    label: "Speak to the visitor out loud"
+    outcome: "Voice conversation initiated, not just text chat"
+    category: conversion
+    weight: 0.7
+
+  - id: qualify-visitor-autonomously
+    label: "Qualify budget, timeline, and use case without a rep"
+    outcome: "BANT captured before session ends"
+    category: conversion
+    weight: 0.85
+
+  - id: book-meeting-in-session
+    label: "Book a demo or call while the visitor is still on-site"
+    outcome: "Calendar slot filled without rep intervention"
+    category: conversion
+    weight: 0.8
+
+  - id: handoff-with-context
+    label: "Hand off to a rep with full session context"
+    outcome: "Rep receives intent score + full conversation log, not just a name"
+    category: handoff
+    weight: 0.75
+
+  - id: crm-sync
+    label: "Sync visitor and lead data to CRM"
+    outcome: "Lead record created/updated in HubSpot, Salesforce, or Zoho"
+    category: integration
+    weight: 0.7
+
+  - id: b2c-ecommerce-support
+    label: "Works on B2C, D2C, and retail sites"
+    outcome: "Purchase-intent visitors engaged, not just B2B leads"
+    category: coverage
+    weight: 0.6
+
+  - id: support-help-desk
+    label: "Manages support tickets and help inbox"
+    outcome: "Customer support workflows handled in the same tool"
+    category: support
+    weight: 0.5

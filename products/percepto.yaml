@@ -1,0 +1,119 @@
+product: percepto
+url: https://perceptoai.com
+category: voice-conversion
+last_scraped: 2026-05-23
+
+icp:
+  sweet_spot: [startup, smb]
+  min_team_size: 1
+  max_team_size: 200
+  source: "https://perceptoai.com/pricing"
+  date: 2026-05-01
+
+pricing:
+  free_tier: true
+  entry_price_usd: 149
+  model: usage
+  source: "https://perceptoai.com/pricing"
+  date: 2026-05-01
+
+features:
+  - id: percepto_ip_deanon
+    name: "IP deanonymization"
+    mechanism: "Reverse IP lookup via ip-api.com to identify visiting company before session starts"
+    jobs: [identify-company-on-site]
+    verdict: true
+    sources:
+      - url: "https://perceptoai.com/cipher"
+        date: 2026-05-01
+        type: vendor_docs
+
+  - id: percepto_first_party_signals
+    name: "Real-time first-party signals"
+    mechanism: "Collects 15+ per-session signals: scroll depth, page path, UTM source, timing, device type"
+    jobs: [real-time-first-party-signals]
+    verdict: true
+    sources:
+      - url: "https://perceptoai.com/cipher"
+        date: 2026-05-01
+        type: vendor_docs
+
+  - id: percepto_return_visitor
+    name: "Return visitor memory"
+    mechanism: "First-party cookie (_scout_vid, 365-day TTL) tracks visit count, last page, last intent across sessions"
+    jobs: [return-visitor-memory]
+    verdict: true
+    sources:
+      - url: "https://perceptoai.com/docs"
+        date: 2026-05-01
+        type: vendor_docs
+
+  - id: percepto_voice
+    name: "Voice-first interaction"
+    mechanism: "Speaks a personalised opening line via browser TTS within 500ms of visitor load; full voice conversation"
+    jobs: [voice-first-interaction, engage-visitor-without-rep]
+    verdict: true
+    sources:
+      - url: "https://perceptoai.com"
+        date: 2026-05-01
+        type: vendor_docs
+
+  - id: percepto_personalized_opening
+    name: "Personalised opening per visitor"
+    mechanism: "LLM generates a unique opening line at runtime using visitor signals, page context, and RAG-crawled client content"
+    jobs: [personalized-opening]
+    verdict: true
+    sources:
+      - url: "https://perceptoai.com/cognis"
+        date: 2026-05-01
+        type: vendor_docs
+
+  - id: percepto_qualify
+    name: "Autonomous visitor qualification"
+    mechanism: "Voice conversation qualifies budget, timeline, and use case without a rep; BANT captured before session ends"
+    jobs: [qualify-visitor-autonomously]
+    verdict: true
+    sources:
+      - url: "https://perceptoai.com/cognis"
+        date: 2026-05-01
+        type: vendor_docs
+
+  - id: percepto_booking
+    name: "In-session booking"
+    mechanism: "Books demo or call mid-conversation via calendar integration; no rep needed"
+    jobs: [book-meeting-in-session]
+    verdict: true
+    sources:
+      - url: "https://perceptoai.com/cognis"
+        date: 2026-05-01
+        type: vendor_docs
+
+  - id: percepto_handoff
+    name: "Handoff with full session context"
+    mechanism: "Rep receives intent score + full conversation transcript + visitor signal summary via Slack or CRM"
+    jobs: [handoff-with-context]
+    verdict: true
+    sources:
+      - url: "https://perceptoai.com/docs"
+        date: 2026-05-01
+        type: vendor_docs
+
+  - id: percepto_crm_sync
+    name: "CRM sync"
+    mechanism: "Pushes lead record and session summary to HubSpot, Salesforce, or Zoho via webhook"
+    jobs: [crm-sync]
+    verdict: true
+    sources:
+      - url: "https://perceptoai.com/docs"
+        date: 2026-05-01
+        type: vendor_docs
+
+  - id: percepto_b2c
+    name: "B2C / e-commerce support"
+    mechanism: "Misha persona for D2C and retail sites; purchase-intent visitors engaged with empathetic voice agent"
+    jobs: [b2c-ecommerce-support]
+    verdict: true
+    sources:
+      - url: "https://perceptoai.com/misha"
+        date: 2026-05-01
+        type: vendor_docs

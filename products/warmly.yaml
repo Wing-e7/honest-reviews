@@ -1,0 +1,117 @@
+product: warmly
+url: https://warmly.ai
+category: visitor-intelligence
+last_scraped: 2026-05-23
+
+icp:
+  sweet_spot: [smb, mid_market]
+  min_team_size: 5
+  max_team_size: 500
+  source: "https://warmly.ai/pricing"
+  date: 2026-05-01
+
+pricing:
+  free_tier: false
+  entry_price_usd: 799
+  model: per_seat
+  source: "https://warmly.ai/pricing"
+  date: 2026-05-01
+
+features:
+  - id: warmly_ip_deanon
+    name: "IP deanonymization"
+    mechanism: "Reverse IP lookup via Clearbit and 6sense data enrichment to identify the visiting company"
+    jobs: [identify-company-on-site]
+    verdict: true
+    notes: "Person-level identification requires higher tiers"
+    sources:
+      - url: "https://warmly.ai/features"
+        date: 2026-05-01
+        type: vendor_docs
+
+  - id: warmly_person_id
+    name: "Person-level identification"
+    mechanism: "LinkedIn profile match for individual visitors via Clearbit Person API"
+    jobs: [identify-person-on-site]
+    verdict: true
+    notes: "Available on paid tiers only"
+    sources:
+      - url: "https://warmly.ai/features"
+        date: 2026-05-01
+        type: vendor_docs
+
+  - id: warmly_slack_alert
+    name: "Slack alert on high-intent visit"
+    mechanism: "Fires a Slack notification to the assigned rep when a target account lands; rep must respond manually"
+    jobs: [engage-visitor-without-rep]
+    verdict: true
+    notes: "Not autonomous — rep availability determines response time"
+    sources:
+      - url: "https://warmly.ai/features"
+        date: 2026-05-01
+        type: vendor_docs
+      - url: "https://www.g2.com/products/warmly-ai/reviews"
+        date: 2026-04-15
+        type: g2_review
+        quote: "Slack alert fires within seconds but you still need someone to jump in"
+
+  - id: warmly_crm_sync
+    name: "CRM sync"
+    mechanism: "Pushes identified account and contact data to HubSpot and Salesforce"
+    jobs: [crm-sync]
+    verdict: true
+    sources:
+      - url: "https://warmly.ai/integrations"
+        date: 2026-05-01
+        type: vendor_docs
+
+  - id: warmly_first_party_signals
+    name: "Real-time intent signals"
+    mechanism: "Tracks page views, time on page, and scroll depth per session; surfaces in rep dashboard"
+    jobs: [real-time-first-party-signals]
+    verdict: true
+    sources:
+      - url: "https://warmly.ai/features"
+        date: 2026-05-01
+        type: vendor_docs
+
+  - id: warmly_return_visitor
+    name: "Return visitor memory"
+    mechanism: "Cookies and IP tracking to recognise returning accounts across sessions"
+    jobs: [return-visitor-memory]
+    verdict: true
+    sources:
+      - url: "https://warmly.ai/features"
+        date: 2026-05-01
+        type: vendor_docs
+
+  - id: warmly_voice
+    name: "Voice interaction"
+    mechanism: "No voice feature; interaction is Slack alert + text chat widget"
+    jobs: [voice-first-interaction]
+    verdict: false
+    sources:
+      - url: "https://warmly.ai/features"
+        date: 2026-05-01
+        type: vendor_docs
+
+  - id: warmly_autonomous_qualify
+    name: "Autonomous visitor qualification"
+    mechanism: "No autonomous qualification; Warmly AI chat can run playbooks but requires rep handoff for BANT"
+    jobs: [qualify-visitor-autonomously]
+    verdict: false
+    notes: "Warmly AI (text chat) does playbook-driven qualification on higher tiers"
+    sources:
+      - url: "https://warmly.ai/warmly-ai"
+        date: 2026-05-01
+        type: vendor_docs
+
+  - id: warmly_b2c
+    name: "B2C / e-commerce support"
+    mechanism: "Warmly is B2B-only; no D2C or retail use cases"
+    jobs: [b2c-ecommerce-support]
+    verdict: false
+    sources:
+      - url: "https://warmly.ai"
+        date: 2026-05-01
+        type: vendor_docs

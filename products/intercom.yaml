@@ -1,0 +1,93 @@
+product: intercom
+url: https://intercom.com
+category: support-messaging
+last_scraped: 2026-05-23
+
+icp:
+  sweet_spot: [startup, smb, mid_market]
+  min_team_size: 1
+  max_team_size: 1000
+  source: "https://intercom.com/pricing"
+  date: 2026-05-01
+
+pricing:
+  free_tier: false
+  entry_price_usd: 74
+  model: per_seat
+  source: "https://intercom.com/pricing"
+  date: 2026-05-01
+
+features:
+  - id: intercom_support_helpdesk
+    name: "Full help desk and support inbox"
+    mechanism: "Unified inbox for customer support tickets, live chat, and email; AI Fin handles tier-1 queries"
+    jobs: [support-help-desk]
+    verdict: true
+    sources:
+      - url: "https://intercom.com/features"
+        date: 2026-05-01
+        type: vendor_docs
+
+  - id: intercom_engage_visitor
+    name: "Visitor engagement"
+    mechanism: "Reactive chat bubble — visitor must click to start; no proactive outreach"
+    jobs: [engage-visitor-without-rep]
+    verdict: false
+    notes: "Intercom opens on visitor click, not proactively; no voice"
+    sources:
+      - url: "https://intercom.com/features/live-chat"
+        date: 2026-05-01
+        type: vendor_docs
+
+  - id: intercom_qualify
+    name: "Qualification via bots"
+    mechanism: "Bot workflows can ask qualification questions but are support-oriented, not BANT-focused"
+    jobs: [qualify-visitor-autonomously]
+    verdict: true
+    notes: "Qualification is support/onboarding focused, not sales conversion"
+    sources:
+      - url: "https://intercom.com/features/bots"
+        date: 2026-05-01
+        type: vendor_docs
+
+  - id: intercom_return_visitor
+    name: "Return visitor memory"
+    mechanism: "Identifies returning visitors via Intercom identity (requires logged-in user or email capture)"
+    jobs: [return-visitor-memory]
+    verdict: true
+    notes: "Anonymous cross-session memory not supported without identity"
+    sources:
+      - url: "https://intercom.com/docs"
+        date: 2026-05-01
+        type: vendor_docs
+
+  - id: intercom_crm
+    name: "CRM sync"
+    mechanism: "Integrates with HubSpot and Salesforce; contact records synced from conversations"
+    jobs: [crm-sync]
+    verdict: true
+    sources:
+      - url: "https://intercom.com/integrations"
+        date: 2026-05-01
+        type: vendor_docs
+
+  - id: intercom_voice
+    name: "Voice interaction"
+    mechanism: "No voice feature; text chat only (Fin AI is text-based)"
+    jobs: [voice-first-interaction]
+    verdict: false
+    sources:
+      - url: "https://intercom.com/features"
+        date: 2026-05-01
+        type: vendor_docs
+
+  - id: intercom_b2c
+    name: "B2C / e-commerce support"
+    mechanism: "Supports e-commerce use cases via messaging and order-related bots; not conversion-first"
+    jobs: [b2c-ecommerce-support]
+    verdict: true
+    notes: "Messaging and support focused, not purchase-intent engagement"
+    sources:
+      - url: "https://intercom.com"
+        date: 2026-05-01
+        type: vendor_docs

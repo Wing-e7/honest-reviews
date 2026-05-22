@@ -1,0 +1,101 @@
+product: qualified
+url: https://qualified.com
+category: pipeline-automation
+last_scraped: 2026-05-23
+
+icp:
+  sweet_spot: [mid_market, enterprise]
+  min_team_size: 20
+  max_team_size: null
+  source: "https://qualified.com/pricing"
+  date: 2026-05-01
+
+pricing:
+  free_tier: false
+  entry_price_usd: 2750
+  model: flat
+  source: "https://qualified.com/pricing"
+  date: 2026-05-01
+
+features:
+  - id: qualified_engage
+    name: "Visitor engagement via Piper AI"
+    mechanism: "Piper AI text chat engages visitors; requires SDR to take over for closing"
+    jobs: [engage-visitor-without-rep]
+    verdict: true
+    notes: "Piper AI handles initial qualification but SDR handoff is the primary workflow"
+    sources:
+      - url: "https://qualified.com/piper-ai"
+        date: 2026-05-01
+        type: vendor_docs
+
+  - id: qualified_qualify
+    name: "In-conversation qualification"
+    mechanism: "Piper AI runs text-based qualification playbooks via conversation"
+    jobs: [qualify-visitor-autonomously]
+    verdict: true
+    sources:
+      - url: "https://qualified.com/features"
+        date: 2026-05-01
+        type: vendor_docs
+
+  - id: qualified_booking
+    name: "In-conversation booking via Qualified Meetings"
+    mechanism: "Books meetings during the conversation via Qualified Meetings calendar integration"
+    jobs: [book-meeting-in-session]
+    verdict: true
+    sources:
+      - url: "https://qualified.com/meetings"
+        date: 2026-05-01
+        type: vendor_docs
+
+  - id: qualified_deanon
+    name: "Account-level deanonymization"
+    mechanism: "6sense and Clearbit enrichment to identify visiting company"
+    jobs: [identify-company-on-site]
+    verdict: true
+    sources:
+      - url: "https://qualified.com/features/signals"
+        date: 2026-05-01
+        type: vendor_docs
+
+  - id: qualified_crm
+    name: "Salesforce-deep CRM sync"
+    mechanism: "Deep Salesforce integration — updates records, tasks, and opportunities natively"
+    jobs: [crm-sync]
+    verdict: true
+    notes: "Salesforce-native and required; other CRMs have limited support"
+    sources:
+      - url: "https://qualified.com/integrations/salesforce"
+        date: 2026-05-01
+        type: vendor_docs
+
+  - id: qualified_handoff
+    name: "Live SDR handoff with full context"
+    mechanism: "SDR receives Salesforce record update with full conversation summary and intent score"
+    jobs: [handoff-with-context]
+    verdict: true
+    sources:
+      - url: "https://qualified.com/features"
+        date: 2026-05-01
+        type: vendor_docs
+
+  - id: qualified_voice
+    name: "Voice interaction"
+    mechanism: "No voice feature; Piper AI is text chat only"
+    jobs: [voice-first-interaction]
+    verdict: false
+    sources:
+      - url: "https://qualified.com/piper-ai"
+        date: 2026-05-01
+        type: vendor_docs
+
+  - id: qualified_b2c
+    name: "B2C / e-commerce support"
+    mechanism: "B2B-only; no D2C or retail support"
+    jobs: [b2c-ecommerce-support]
+    verdict: false
+    sources:
+      - url: "https://qualified.com"
+        date: 2026-05-01
+        type: vendor_docs
