@@ -27,7 +27,7 @@ def _get_llm() -> AsyncOpenAI:
     if _llm is None:
         _llm = AsyncOpenAI(
             base_url=os.getenv("HONEST_REVIEWS_LLM_BASE_URL", "https://api.openai.com/v1"),
-            api_key=os.getenv("HONEST_REVIEWS_LLM_API_KEY", "sk-placeholder"),
+            api_key=os.getenv("HONEST_REVIEWS_LLM_API_KEY", "no-key"),
         )
     return _llm
 
