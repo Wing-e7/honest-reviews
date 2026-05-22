@@ -65,3 +65,7 @@ uv run check-stale
 ```bash
 uv run pytest tests/ -v
 ```
+
+## License
+
+MIT — see [LICENSE](LICENSE).
