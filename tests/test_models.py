@@ -43,3 +43,32 @@ def test_chat_response_step_values():
     r = ChatResponse(message="ok", step="candidates")
     assert r.step == "candidates"
     assert r.candidates is None
+
+from chat.loader import load_product, load_all_products, load_taxonomy
+import pathlib
+
+PRODUCTS_DIR = pathlib.Path(__file__).parent.parent / "products"
+JOBS_DIR = pathlib.Path(__file__).parent.parent / "jobs"
+
+def test_load_product_warmly():
+    p = load_product("warmly", products_dir=PRODUCTS_DIR)
+    assert p.product == "warmly"
+    assert len(p.features) > 0
+    assert p.pricing.entry_price_usd == 799
+
+def test_load_product_missing():
+    with pytest.raises(FileNotFoundError):
+        load_product("nonexistent", products_dir=PRODUCTS_DIR)
+
+def test_load_all_products():
+    products = load_all_products(products_dir=PRODUCTS_DIR)
+    slugs = [p.product for p in products]
+    assert "warmly" in slugs
+    assert "percepto" in slugs
+    assert len(products) == 5
+
+def test_load_taxonomy():
+    t = load_taxonomy(jobs_dir=JOBS_DIR)
+    job_ids = [j.id for j in t.jobs]
+    assert "identify-company-on-site" in job_ids
+    assert "engage-visitor-without-rep" in job_ids
