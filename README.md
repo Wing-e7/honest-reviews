@@ -13,8 +13,18 @@ LLM-powered product comparison engine. Compare 2–5 tools for a specific use ca
 ```bash
 # Install
 uv venv && uv pip install -e ".[dev]"
-cp .env.example .env  # add your LLM API key
+cp .env.example .env
+```
 
+Edit `.env` and pick a provider — three options, uncomment one:
+
+| Provider | Cost | Privacy | Setup |
+|----------|------|---------|-------|
+| **Ollama** (recommended) | Free | Fully local — no data leaves your machine | `ollama pull llama3.2` |
+| **Groq** | Free tier | Cloud | [console.groq.com](https://console.groq.com) → API Keys |
+| **OpenAI** | Paid | Cloud | [platform.openai.com/api-keys](https://platform.openai.com/api-keys) |
+
+```bash
 # Run the API
 uv run uvicorn chat.main:app --reload
 
