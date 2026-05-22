@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>honest-reviews — product comparison chat</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, sans-serif; background: #0f0f0f; color: #e8e8e8; height: 100dvh; display: flex; flex-direction: column; }
+    header { padding: 16px 24px; border-bottom: 1px solid #2a2a2a; display: flex; align-items: center; gap: 12px; }
+    header h1 { font-size: 16px; font-weight: 600; color: #fff; }
+    header span { font-size: 12px; color: #666; }
+    #chat { flex: 1; overflow-y: auto; padding: 24px; display: flex; flex-direction: column; gap: 16px; }
+    .msg { max-width: 720px; line-height: 1.6; }
+    .msg.user { align-self: flex-end; background: #1e3a5f; padding: 12px 16px; border-radius: 12px 12px 2px 12px; }
+    .msg.assistant { align-self: flex-start; background: #1a1a1a; border: 1px solid #2a2a2a; padding: 12px 16px; border-radius: 2px 12px 12px 12px; white-space: pre-wrap; }
+    .candidates { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .candidate-btn { background: #1e3a5f; border: 1px solid #2a4a7f; color: #7db9ff; padding: 6px 14px; border-radius: 20px; cursor: pointer; font-size: 13px; transition: background 0.15s; }
+    .candidate-btn:hover { background: #2a4a7f; }
+    .candidate-btn.selected { background: #2a4a7f; border-color: #4a7abf; }
+    .compare-btn { background: #1a3a1a; border: 1px solid #2a6a2a; color: #7dff9f; padding: 6px 14px; border-radius: 20px; cursor: pointer; font-size: 13px; font-weight: 500; transition: background 0.15s; }
+    .compare-btn:hover { background: #224a22; }
+    #input-row { padding: 16px 24px; border-top: 1px solid #2a2a2a; display: flex; gap: 10px; }
+    #input { flex: 1; background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 8px; padding: 12px 16px; color: #e8e8e8; font-size: 14px; outline: none; resize: none; font-family: inherit; }
+    #input:focus { border-color: #3a5a9f; }
+    #send { background: #2563eb; color: #fff; border: none; border-radius: 8px; padding: 0 20px; cursor: pointer; font-size: 14px; font-weight: 500; transition: background 0.15s; }
+    #send:hover { background: #1d4ed8; }
+    #send:disabled { opacity: 0.4; cursor: default; }
+    .thinking { color: #555; font-style: italic; font-size: 13px; }
+    .select-hint { font-size: 12px; color: #666; margin-top: 8px; }
+  </style>
+</head>
+<body>
+<header>
+  <h1>honest-reviews</h1>
+  <span>LLM-powered product comparison · claims sourced + cited</span>
+</header>
+<div id="chat">
+  <div class="msg assistant">Hi! Tell me what you're trying to solve — I'll find and compare the right tools for you. You can also name specific products to compare directly.</div>
+</div>
+<div id="input-row">
+  <textarea id="input" rows="1" placeholder="e.g. I want to engage website visitors without hiring SDRs, team of 8, budget $300/mo"></textarea>
+  <button id="send">Send</button>
+</div>
+<script>
+  const API = 'http://localhost:8000';
+  const chatEl = document.getElementById('chat');
+  const inputEl = document.getElementById('input');
+  const sendBtn = document.getElementById('send');
+
+  const state = { messages: [], teamSize: null, budgetUsd: null, selectedProducts: null };
+  let _selected = new Set();
+
+  function addMessage(role, content, candidates) {
+    const div = document.createElement('div');
+    div.className = `msg ${role}`;
+    div.textContent = content;
+
+    if (candidates && candidates.length) {
+      const hint = document.createElement('div');
+      hint.className = 'select-hint';
+      hint.textContent = 'Select 2–5 products to compare:';
+      div.appendChild(hint);
+
+      const row = document.createElement('div');
+      row.className = 'candidates';
+
+      candidates.forEach(slug => {
+        const btn = document.createElement('button');
+        btn.className = 'candidate-btn';
+        btn.textContent = slug;
+        btn.dataset.slug = slug;
+        btn.onclick = () => {
+          if (_selected.has(slug)) {
+            _selected.delete(slug);
+            btn.classList.remove('selected');
+          } else if (_selected.size < 5) {
+            _selected.add(slug);
+            btn.classList.add('selected');
+          }
+          compareBtn.textContent = _selected.size >= 2
+            ? `→ Compare selected (${_selected.size})`
+            : '→ Compare selected';
+        };
+        row.appendChild(btn);
+      });
+
+      const compareBtn = document.createElement('button');
+      compareBtn.className = 'compare-btn';
+      compareBtn.textContent = '→ Compare selected';
+      compareBtn.onclick = async () => {
+        if (_selected.size < 2) { alert('Select at least 2 products to compare.'); return; }
+        state.selectedProducts = [..._selected];
+        _selected.clear();
+        await send();
+      };
+      row.appendChild(compareBtn);
+      div.appendChild(row);
+    }
+
+    chatEl.appendChild(div);
+    chatEl.scrollTop = chatEl.scrollHeight;
+  }
+
+  async function send(overrideContent) {
+    const content = overrideContent || inputEl.value.trim();
+    if (!content && !state.selectedProducts) return;
+
+    if (content) {
+      state.messages.push({ role: 'user', content });
+      addMessage('user', content);
+      inputEl.value = '';
+    }
+
+    sendBtn.disabled = true;
+    const thinking = document.createElement('div');
+    thinking.className = 'msg assistant thinking';
+    thinking.textContent = 'Thinking…';
+    chatEl.appendChild(thinking);
+    chatEl.scrollTop = chatEl.scrollHeight;
+
+    try {
+      const body = { messages: state.messages };
+      if (state.teamSize) body.team_size = state.teamSize;
+      if (state.budgetUsd) body.budget_usd = state.budgetUsd;
+      if (state.selectedProducts) { body.products = state.selectedProducts; state.selectedProducts = null; }
+
+      const res = await fetch(`${API}/chat`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+      if (!res.ok) throw new Error(`Server error ${res.status}`);
+      const data = await res.json();
+      chatEl.removeChild(thinking);
+      state.messages.push({ role: 'assistant', content: data.message });
+      addMessage('assistant', data.message, data.candidates);
+    } catch (e) {
+      chatEl.removeChild(thinking);
+      addMessage('assistant', `Error: ${e.message}`);
+    } finally {
+      sendBtn.disabled = false;
+      inputEl.focus();
+    }
+  }
+
+  sendBtn.onclick = () => send();
+  inputEl.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); }
+  });
+
+  // Auto-resize textarea
+  inputEl.addEventListener('input', () => {
+    inputEl.style.height = 'auto';
+    inputEl.style.height = Math.min(inputEl.scrollHeight, 120) + 'px';
+  });
+</script>
+</body>
+</html>
